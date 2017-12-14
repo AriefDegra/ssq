@@ -34,23 +34,28 @@ public class Sim {
     public static Random stream;
 
     public static void main(String[] args) {
+        
 
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Mean Inter-arrival Time: ");
-        meanInterArrivalTime = sc.nextDouble();
+        meanInterArrivalTime =5;// sc.nextDouble();
         System.out.print("Mean Service Time: ");
-        meanServiceTime = sc.nextDouble();
+        meanServiceTime =10;// sc.nextDouble();
         System.out.print("Standard Deviation: ");
-        SIGMA = sc.nextDouble();
+        SIGMA =0.6;// sc.nextDouble();
         System.out.print("Total Number Of Customers: ");
-        totalCustomers = sc.nextInt();
+        totalCustomers =100;// sc.nextInt();
 
         long seed = 1234; //Long.parseLong(argv[0]);
         stream = new Random(seed);
         futureEventList = new EventList();
         customers = new Queue();
 
+        for(int i=0;i<=100;i++){
+            System.out.println(exponential(stream, meanInterArrivalTime));
+        }
+        
         initialization();
 
         while (numberOfDepartures < totalCustomers) {
