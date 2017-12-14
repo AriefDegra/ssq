@@ -84,6 +84,9 @@ public class Sim {
 
     public static void processArrival(Event evt) {
 
+        Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
+        futureEventList.enqueue(nextArrival);
+
         customers.enqueue(evt);
         queueLength++;
         if (numberInService == 0) {
@@ -95,8 +98,6 @@ public class Sim {
             maxQueueLength = queueLength;
         }
 
-        Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
-        futureEventList.enqueue(nextArrival);
         lastEventTime = clock;
     }
 
