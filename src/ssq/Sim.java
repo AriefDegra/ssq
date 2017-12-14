@@ -47,7 +47,7 @@ public class Sim {
         System.out.print("Total Number Of Customers: ");
         totalCustomers =100;// sc.nextInt();
 
-        long seed = 1234; //Long.parseLong(argv[0]);
+        long seed = 1000; //Long.parseLong(argv[0]);
         stream = new Random(seed);
         futureEventList = new EventList();
         customers = new Queue();
@@ -95,6 +95,9 @@ public class Sim {
         Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
         futureEventList.enqueue(nextArrival);
         lastEventTime = clock;
+
+        Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
+        futureEventList.enqueue(nextArrival);
 
         customers.enqueue(evt);
         queueLength++;
