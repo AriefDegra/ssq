@@ -21,8 +21,7 @@ public class Sim {
             totalBusy,
             maxQueueLength,
             sumResponseTime;
-    public static long numberOfCustomers,
-            queueLength,
+    public static long queueLength,
             numberInService,
             totalCustomers,
             numberOfDepartures,

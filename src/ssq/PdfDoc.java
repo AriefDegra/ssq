@@ -80,7 +80,7 @@ public class PdfDoc {
             //Setting the position for the line
             contentStream.newLineAtOffset(359, 104);
             //Adding text in the form of string
-            contentStream.showText(Double.toString(Sim.runtime));
+            contentStream.showText(Double.toString(Sim.runtime) + " ms");
             //Ending the content stream
             contentStream.endText();
 
