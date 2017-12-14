@@ -34,28 +34,23 @@ public class Sim {
     public static Random stream;
 
     public static void main(String[] args) {
-        
 
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Mean Inter-arrival Time: ");
-        meanInterArrivalTime =5;// sc.nextDouble();
+        meanInterArrivalTime = sc.nextDouble();
         System.out.print("Mean Service Time: ");
-        meanServiceTime =10;// sc.nextDouble();
+        meanServiceTime = sc.nextDouble();
         System.out.print("Standard Deviation: ");
-        SIGMA =0.6;// sc.nextDouble();
+        SIGMA = sc.nextDouble();
         System.out.print("Total Number Of Customers: ");
-        totalCustomers =100;// sc.nextInt();
+        totalCustomers = sc.nextInt();
 
         long seed = 1234; //Long.parseLong(argv[0]);
         stream = new Random(seed);
         futureEventList = new EventList();
         customers = new Queue();
 
-        for(int i=0;i<=100;i++){
-            System.out.println(exponential(stream, meanInterArrivalTime));
-        }
-        
         initialization();
 
         while (numberOfDepartures < totalCustomers) {
@@ -85,16 +80,12 @@ public class Sim {
 
         Event evt = new Event(arrival, exponential(stream, meanInterArrivalTime));
         futureEventList.enqueue(evt);
-        
-        
     }
 
     public static void processArrival(Event evt) {
-        
-        
+
         Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
         futureEventList.enqueue(nextArrival);
-        lastEventTime = clock;
 
         customers.enqueue(evt);
         queueLength++;
@@ -107,8 +98,7 @@ public class Sim {
             maxQueueLength = queueLength;
         }
 
-        
-        
+        lastEventTime = clock;
     }
 
     public static void scheduleDeparture() {
