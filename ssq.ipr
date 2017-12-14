@@ -21,6 +21,12 @@
     <library name="SSQ">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/dist/SSQ.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/commons-logging-1.2/commons-logging-1.2.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/pdfbox/pdfbox-2.0.8.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/pdfbox/fontbox-2.0.8.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/pdfbox/pdfbox-tools-2.0.8.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/pdfbox/xmpbox-2.0.8.jar!/" />
+        <root url="jar://$PROJECT_DIR$/library/pdfbox/preflight-2.0.8.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

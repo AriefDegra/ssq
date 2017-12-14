@@ -5,7 +5,9 @@
  */
 package ssq;
 
+import java.io.IOException;
 import java.util.*;
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 /**
  *
@@ -46,6 +48,7 @@ public class Sim {
         System.out.print("Total Number Of Customers: ");
         totalCustomers = sc.nextInt();
 
+        long seed = 1000; //Long.parseLong(argv[0]);
         stream = new Random(seed);
         futureEventList = new EventList();
         customers = new Queue();
@@ -131,6 +134,21 @@ public class Sim {
         double RHO = totalBusy / clock;
         double AVGR = sumResponseTime / totalCustomers;
         double PC4 = ((double) longService) / totalCustomers;
+
+        //Creating PDF document object
+        PDDocument document = new PDDocument();
+
+        //Saving the document
+        try {
+            document.save("A:/my_doc.pdf");
+
+            System.out.println("PDF created");
+
+            //Closing the document
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         System.out.println();
 

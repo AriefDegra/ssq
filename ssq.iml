@@ -7,5 +7,27 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/library/pdfbox" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/library/pdfbox" recursive="false" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/library/commons-logging-1.2" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/library/commons-logging-1.2/apidocs" />
+        </JAVADOC>
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/library/commons-logging-1.2" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
