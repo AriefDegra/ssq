@@ -6,7 +6,6 @@
 package ssq;
 import java.util.*;
 
-
 /**
  *
  * @author SMJPX
@@ -155,3 +154,5 @@ public class Sim {
 
     }
 }
+
+ 
