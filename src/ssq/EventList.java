@@ -13,6 +13,7 @@ import java.util.*;
  */
 class EventList extends LinkedList {
 
+
     public EventList() {
         super();
     }

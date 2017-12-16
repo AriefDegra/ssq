@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package ssq;
-
 import java.util.*;
 
 /**
@@ -12,7 +11,7 @@ import java.util.*;
  * @author SMJPX
  */
 public class Sim {
-
+    public static long runtime;
     public static double clock,
             meanInterArrivalTime,
             meanServiceTime,
@@ -46,6 +45,9 @@ public class Sim {
         System.out.print("Total Number Of Customers: ");
         totalCustomers = sc.nextInt();
 
+        Date start = new Date();
+
+        long seed = 1234; //Long.parseLong(argv[0]);
         stream = new Random(seed);
         futureEventList = new EventList();
         customers = new Queue();
@@ -62,7 +64,9 @@ public class Sim {
                 processDeparture(evt);
             }
         }
-        reportGeneration();
+        Date finished = new Date();
+        runtime = finished.getTime() - start.getTime();
+        PdfDoc.reportGeneration();
     }
 
     public static void initialization() {
@@ -127,30 +131,6 @@ public class Sim {
         lastEventTime = clock;
     }
 
-    public static void reportGeneration() {
-        double RHO = totalBusy / clock;
-        double AVGR = sumResponseTime / totalCustomers;
-        double PC4 = ((double) longService) / totalCustomers;
-
-        System.out.println();
-
-        System.out.println("                          ***REPORT***");
-
-        System.out.println("#SINGLE SERVER QUEUE SIMULATION - GROCERY STORE CHECKOUT COUNTER#");
-        System.out.println("\tMEAN INTER-ARRIVAL TIME                :        " + meanInterArrivalTime);
-        System.out.println("\tMEAN SERVICE TIME                      :        " + meanServiceTime);
-        System.out.println("\tSTANDARD DEVIATION OF SERVICE TIMES    :        " + SIGMA);
-        System.out.println("\tNUMBER OF CUSTOMERS SERVED             :        " + totalCustomers);
-        System.out.println();
-        System.out.println("\tSERVER UTILIZATION                     :        " + RHO);
-        System.out.println("\tMAXIMUM LINE LENGTH                    :        " + maxQueueLength);
-        System.out.println("\tAVERAGE RESPONSE TIME                  :        " + AVGR + " MINUTES");
-        System.out.println("\tPROPORTION WHO SPEND FOUR ");
-        System.out.println("\t\tMINUTES OR MORE IN SYSTEM      :        " + PC4);
-        System.out.println("\tSIMULATION RUNLENGTH                   :        " + clock + " MINUTES");
-        System.out.println("\tNUMBER OF DEPARTURES                   :        " + totalCustomers);
-    }
-
     public static double exponential(Random rng, double mean) {
         return -mean * Math.log(rng.nextDouble());
     }
@@ -174,3 +154,5 @@ public class Sim {
 
     }
 }
+
+ 
