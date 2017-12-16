@@ -11,21 +11,29 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 public class PdfDoc {
 
-    public static float posX = 318;
-    public static float posY = 523;
+    public static float posX = 405;
+    public static float posY = 590;
     public static PDPageContentStream contentStream;
+    
+    
 
     public static void reportGeneration() {
+        
+        DecimalFormat dcf=new DecimalFormat("##.##");
 
-        double RHO = Sim.totalBusy / Sim.clock;
-        double AVGR = Sim.sumResponseTime / Sim.totalCustomers;
-        double PC4 = ((double) Sim.longService) / Sim.totalCustomers;
+        String RHO = dcf.format(Sim.totalBusy / Sim.clock);
+        String AVGR = dcf.format(Sim.sumResponseTime / Sim.totalCustomers);
+        String PC4 = dcf.format(Sim.longService / Sim.totalCustomers);
+        
+        
+        
+        String clock= dcf.format(Sim.clock);
 
         //Saving the document
         try {
 
             //Loading an existing document
-            File file = new File("A:\\Git\\ssq\\demo.pdf");
+            File file = new File("res\\report-draft.pdf");
             PDDocument document = PDDocument.load(file);
 
             System.out.println("PDF loaded");
@@ -33,10 +41,11 @@ public class PdfDoc {
 
             //Retrieving the pages of the document
             PDPage page = document.getPage(0);
-            contentStream = new PDPageContentStream(document, page, true, true);
+            page.setRotation(0);
+            contentStream = new PDPageContentStream(document, page, true, true, true);
 
             //Setting the font to the Content stream
-            contentStream.setFont(PDType1Font.TIMES_BOLD, 16);
+            contentStream.setFont(PDType1Font.TIMES_BOLD, 14);
             contentStream.setNonStrokingColor(0,0,0);
 
 
@@ -46,39 +55,40 @@ public class PdfDoc {
             //Begin the Content stream
             contentStream.beginText();
             //Setting the position for the line
-            contentStream.newLineAtOffset(125, 697);
+            contentStream.newLineAtOffset(480, 591);
             //Adding text in the form of string
             contentStream.showText(s1);
             //Ending the content stream
             contentStream.endText();
 
             // MEAN INTER-ARRIVAL TIME
-            writeText(Double.toString( Sim.meanInterArrivalTime));
+            writeText(Double.toString(Sim.meanInterArrivalTime));
             // MEAN SERVICE TIME
             writeText(Double.toString(Sim.meanServiceTime));
             // STANDARD DEVIATION OF SERVICE TIMES
             writeText(Double.toString(Sim.SIGMA));
             // NUMBER OF CUSTOMERS SERVED
-            writeText(Double.toString((int) Sim.totalCustomers));
+            writeText(Long.toString(Sim.totalCustomers));
             // SERVER UTILIZATION
-            writeText(Double.toString(RHO));
+            writeText(RHO);
             // MAXIMUM LINE LENGTH
             writeText(Double.toString(Sim.maxQueueLength));
             // AVERAGE RESPONSE TIME
-            writeText(Double.toString(AVGR));
+            writeText(AVGR);
             // PROPORTION WHO SPEND FOUR MINUTES OR MORE IN SYSTEM
-            writeText(Double.toString(PC4));
+            writeText(PC4);
             // SIMULATION RUN LENGTH
-            writeText(Double.toString(Sim.clock));
+            writeText(clock);
             // NUMBER OF DEPARTURES
-            writeText(Double.toString((int) Sim.numberOfDepartures));
+            writeText(Long.toString(Sim.numberOfDepartures));
 
 
-
+            contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 11);
+            contentStream.setNonStrokingColor(0,0,0);
             //Begin the Content stream
             contentStream.beginText();
             //Setting the position for the line
-            contentStream.newLineAtOffset(359, 104);
+            contentStream.newLineAtOffset(308, 215);
             //Adding text in the form of string
             contentStream.showText(Double.toString(Sim.runtime));
             //Ending the content stream
@@ -88,7 +98,7 @@ public class PdfDoc {
             //Ending the content stream
             contentStream.close();
             //Saving the document
-            document.save("A:\\Git\\ssq\\Report-1.pdf");
+            document.save("output\\Report.pdf");
 
             //Closing the document
             document.close();
@@ -111,14 +121,14 @@ public class PdfDoc {
         System.out.println("\tMAXIMUM LINE LENGTH                    :        " + Sim.maxQueueLength);
         System.out.println("\tAVERAGE RESPONSE TIME                  :        " + AVGR + " MINUTES");
         System.out.println("\tPROPORTION WHO SPEND FOUR ");
-        System.out.println("\t\tMINUTES OR MORE IN SYSTEM            :        " + PC4);
-        System.out.println("\tSIMULATION RUNLENGTH                   :        " + Sim.clock + " MINUTES");
+        System.out.println("\t\tMINUTES OR MORE IN SYSTEM      :        " + PC4);
+        System.out.println("\tSIMULATION RUNLENGTH                   :        " + clock + " MINUTES");
         System.out.println("\tNUMBER OF DEPARTURES                   :        " + Sim.totalCustomers);
 
     }
 
     static void writeText(String str) throws IOException {
-        posY -= 36.5;
+        posY -= 32.6;
 
         //Begin the Content stream
         contentStream.beginText();
