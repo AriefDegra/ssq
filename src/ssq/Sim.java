@@ -1,8 +1,6 @@
 package ssq;
 import java.util.*;
 
-
-
 public class Sim {
     public static long runtime;
     public static double Clock,
@@ -127,23 +125,23 @@ public class Sim {
         return -mean * Math.log(rng.nextDouble());
     }
 
-    public static double saveNormal;
-    public static int numNormals = 0;
+    public static double SaveNormal;
+    public static int NumNormals = 0;
     public static final double PI = 3.1415927;
 
-    public static double normal(Random rng, double mean, double sigma) {
-        double returnNormal;
-        if (numNormals == 0) {
+    public static double normal(Random rng, double Mean, double Sigma) {
+        double ReturnNormal;
+        if (NumNormals == 0) {
             double r1 = rng.nextDouble();
             double r2 = rng.nextDouble();
-            returnNormal = Math.sqrt(-2 * Math.log(r1)) * Math.cos(2 * PI * r2);
-            saveNormal = Math.sqrt(-2 * Math.log(r1)) * Math.sin(2 * PI * r2);
-            numNormals = 1;
+            ReturnNormal = Math.sqrt(-2 * Math.log(r1)) * Math.cos(2 * PI * r2);
+            SaveNormal = Math.sqrt(-2 * Math.log(r1)) * Math.sin(2 * PI * r2);
+            NumNormals = 1;
         } else {
-            numNormals = 0;
-            returnNormal = saveNormal;
+            NumNormals = 0;
+            ReturnNormal = SaveNormal;
         }
-        return returnNormal * sigma + mean;
+        return ReturnNormal * Sigma + Mean;
 
     }
 }
