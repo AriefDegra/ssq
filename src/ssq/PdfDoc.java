@@ -2,7 +2,8 @@ package ssq;
 import java.io.*;
 import java.text.*;
 import java.util.*;
-
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -23,12 +24,14 @@ public class PdfDoc {
         try {
             String reportfile = createTmpFile();
 
+            Path currentRelativePath = Paths.get("");
+            String s = currentRelativePath.toAbsolutePath().toString();
 
             //Loading an existing document
             File file = new File(reportfile);
             PDDocument document = PDDocument.load(file);
 
-            System.out.println("PDF loaded");
+            System.out.println("");
 
 
             //Retrieving the pages of the document
@@ -90,6 +93,7 @@ public class PdfDoc {
             //Saving the document
             document.save("Report.pdf");
 
+            System.out.println("PDf generated at " + s + "\\Report.pdf");
             //Closing the document
             document.close();
         } catch (IOException e) {
