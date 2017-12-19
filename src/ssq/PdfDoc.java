@@ -15,16 +15,17 @@ public class PdfDoc {
     public static PDPageContentStream contentStream;
 
     public static void reportGeneration() {
-
         double RHO = Sim.TotalBusy / Sim.Clock;
         double AVGR = Sim.SumResponseTime / Sim.TotalCustomers;
         double PC4 = ((double) Sim.LongService) / Sim.TotalCustomers;
 
         //Saving the document
         try {
+            String reportfile = createTmpFile();
+
 
             //Loading an existing document
-            File file = new File("A:\\Git\\ssq\\demo.pdf");
+            File file = new File(reportfile);
             PDDocument document = PDDocument.load(file);
 
             System.out.println("PDF loaded");
@@ -87,7 +88,7 @@ public class PdfDoc {
             //Ending the content stream
             contentStream.close();
             //Saving the document
-            document.save("A:\\Git\\ssq\\Report-1.pdf");
+            document.save("Report.pdf");
 
             //Closing the document
             document.close();
@@ -127,6 +128,34 @@ public class PdfDoc {
         contentStream.showText(str);
         //Ending the content stream
         contentStream.endText();
+    }
+
+
+    static String createTmpFile(){
+        try {
+            //Loading an existing document
+            Sim sim = new Sim();
+
+            InputStream is = sim.getClass().getResourceAsStream("demo.pdf");
+
+            OutputStream os = new FileOutputStream("report.pdf.tmp");
+
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            //read from is to buffer
+            while((bytesRead = is.read(buffer)) !=-1){
+                os.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            //flush OutputStream to write any buffered data to file
+            os.flush();
+            os.close();
+            return "report.pdf.tmp";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

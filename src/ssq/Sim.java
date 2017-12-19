@@ -1,4 +1,6 @@
 package ssq;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class Sim {
@@ -21,6 +23,9 @@ public class Sim {
     public static EventList futureEventList;
     public static Queue customers;
     public static Random stream;
+
+    public Sim(){
+    }
 
     public static void main(String[] args) {
 
