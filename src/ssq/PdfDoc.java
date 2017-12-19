@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ssq;
 
 import java.io.*;
@@ -9,25 +14,25 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+/**
+ *
+ * @author SMJPX
+ */
 public class PdfDoc {
 
     public static float posX = 405;
     public static float posY = 590;
     public static PDPageContentStream contentStream;
-    
-    
 
     public static void reportGeneration() {
-        
-        DecimalFormat dcf=new DecimalFormat("##.##");
+
+        DecimalFormat dcf = new DecimalFormat("##.##");
 
         String RHO = dcf.format(Sim.totalBusy / Sim.clock);
         String AVGR = dcf.format(Sim.sumResponseTime / Sim.totalCustomers);
         String PC4 = dcf.format(Sim.longService / Sim.totalCustomers);
-        
-        
-        
-        String clock= dcf.format(Sim.clock);
+
+        String clock = dcf.format(Sim.clock);
 
         //Saving the document
         try {
@@ -38,7 +43,6 @@ public class PdfDoc {
 
             System.out.println("PDF loaded");
 
-
             //Retrieving the pages of the document
             PDPage page = document.getPage(0);
             page.setRotation(0);
@@ -46,8 +50,7 @@ public class PdfDoc {
 
             //Setting the font to the Content stream
             contentStream.setFont(PDType1Font.TIMES_BOLD, 14);
-            contentStream.setNonStrokingColor(0,0,0);
-
+            contentStream.setNonStrokingColor(0, 0, 0);
 
             Date now = new Date();
             DateFormat df1 = DateFormat.getDateInstance(DateFormat.SHORT);
@@ -82,9 +85,8 @@ public class PdfDoc {
             // NUMBER OF DEPARTURES
             writeText(Long.toString(Sim.numberOfDepartures));
 
-
             contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 11);
-            contentStream.setNonStrokingColor(0,0,0);
+            contentStream.setNonStrokingColor(0, 0, 0);
             //Begin the Content stream
             contentStream.beginText();
             //Setting the position for the line
@@ -93,7 +95,6 @@ public class PdfDoc {
             contentStream.showText(Double.toString(Sim.runtime));
             //Ending the content stream
             contentStream.endText();
-
 
             //Ending the content stream
             contentStream.close();
@@ -105,7 +106,6 @@ public class PdfDoc {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         System.out.println();
 
