@@ -24,9 +24,6 @@ public class Sim {
     public static Queue customers;
     public static Random stream;
 
-    public Sim(){
-    }
-
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
