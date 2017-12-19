@@ -14,9 +14,9 @@ class Event {
     private double time;
     private int type;
 
-    public Event(int _type, double _time) {
-        type = _type;
-        time = _time;
+    public Event(int type, double time) {
+        this.type = type;
+        this.time = time;
     }
 
     public int getType() {

@@ -1,5 +1,4 @@
 package ssq;
-
 import java.io.*;
 import java.text.*;
 import java.util.*;
@@ -17,9 +16,9 @@ public class PdfDoc {
 
     public static void reportGeneration() {
 
-        double RHO = Sim.totalBusy / Sim.clock;
-        double AVGR = Sim.sumResponseTime / Sim.totalCustomers;
-        double PC4 = ((double) Sim.longService) / Sim.totalCustomers;
+        double RHO = Sim.TotalBusy / Sim.Clock;
+        double AVGR = Sim.SumResponseTime / Sim.TotalCustomers;
+        double PC4 = ((double) Sim.LongService) / Sim.TotalCustomers;
 
         //Saving the document
         try {
@@ -53,25 +52,25 @@ public class PdfDoc {
             contentStream.endText();
 
             // MEAN INTER-ARRIVAL TIME
-            writeText(Double.toString( Sim.meanInterArrivalTime));
+            writeText(Double.toString( Sim.MeanInterArrivalTime));
             // MEAN SERVICE TIME
-            writeText(Double.toString(Sim.meanServiceTime));
+            writeText(Double.toString(Sim.MeanServiceTime));
             // STANDARD DEVIATION OF SERVICE TIMES
             writeText(Double.toString(Sim.SIGMA));
             // NUMBER OF CUSTOMERS SERVED
-            writeText(Double.toString((int) Sim.totalCustomers));
+            writeText(Double.toString((int) Sim.TotalCustomers));
             // SERVER UTILIZATION
             writeText(Double.toString(RHO));
             // MAXIMUM LINE LENGTH
-            writeText(Double.toString(Sim.maxQueueLength));
+            writeText(Double.toString(Sim.MaxQueueLength));
             // AVERAGE RESPONSE TIME
             writeText(Double.toString(AVGR));
             // PROPORTION WHO SPEND FOUR MINUTES OR MORE IN SYSTEM
             writeText(Double.toString(PC4));
             // SIMULATION RUN LENGTH
-            writeText(Double.toString(Sim.clock));
+            writeText(Double.toString(Sim.Clock));
             // NUMBER OF DEPARTURES
-            writeText(Double.toString((int) Sim.numberOfDepartures));
+            writeText(Double.toString((int) Sim.NumberOfDepartures));
 
 
 
@@ -102,18 +101,18 @@ public class PdfDoc {
         System.out.println("                          ***REPORT***");
 
         System.out.println("#SINGLE SERVER QUEUE SIMULATION - GROCERY STORE CHECKOUT COUNTER#");
-        System.out.println("\tMEAN INTER-ARRIVAL TIME                :        " + Sim.meanInterArrivalTime);
-        System.out.println("\tMEAN SERVICE TIME                      :        " + Sim.meanServiceTime);
+        System.out.println("\tMEAN INTER-ARRIVAL TIME                :        " + Sim.MeanInterArrivalTime);
+        System.out.println("\tMEAN SERVICE TIME                      :        " + Sim.MeanServiceTime);
         System.out.println("\tSTANDARD DEVIATION OF SERVICE TIMES    :        " + Sim.SIGMA);
-        System.out.println("\tNUMBER OF CUSTOMERS SERVED             :        " + Sim.totalCustomers);
+        System.out.println("\tNUMBER OF CUSTOMERS SERVED             :        " + Sim.TotalCustomers);
         System.out.println();
         System.out.println("\tSERVER UTILIZATION                     :        " + RHO);
-        System.out.println("\tMAXIMUM LINE LENGTH                    :        " + Sim.maxQueueLength);
+        System.out.println("\tMAXIMUM LINE LENGTH                    :        " + Sim.MaxQueueLength);
         System.out.println("\tAVERAGE RESPONSE TIME                  :        " + AVGR + " MINUTES");
         System.out.println("\tPROPORTION WHO SPEND FOUR ");
         System.out.println("\t\tMINUTES OR MORE IN SYSTEM            :        " + PC4);
-        System.out.println("\tSIMULATION RUNLENGTH                   :        " + Sim.clock + " MINUTES");
-        System.out.println("\tNUMBER OF DEPARTURES                   :        " + Sim.totalCustomers);
+        System.out.println("\tSIMULATION RUNLENGTH                   :        " + Sim.Clock + " MINUTES");
+        System.out.println("\tNUMBER OF DEPARTURES                   :        " + Sim.TotalCustomers);
 
     }
 

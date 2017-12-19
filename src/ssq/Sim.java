@@ -1,31 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ssq;
 import java.util.*;
 
 
-/**
- *
- * @author SMJPX
- */
+
 public class Sim {
     public static long runtime;
-    public static double clock,
-            meanInterArrivalTime,
-            meanServiceTime,
+    public static double Clock,
+            MeanInterArrivalTime,
+            MeanServiceTime,
             SIGMA,
-            lastEventTime,
-            totalBusy,
-            maxQueueLength,
-            sumResponseTime;
-    public static long queueLength,
-            numberInService,
-            totalCustomers,
-            numberOfDepartures,
-            longService;
+            LastEventTime,
+            TotalBusy,
+            MaxQueueLength,
+            SumResponseTime;
+    public static long QueueLength,
+            NumberInService,
+            TotalCustomers,
+            NumberOfDepartures,
+            LongService;
     public final static int arrival = 1;
     public final static int departure = 2;
     public static EventList futureEventList;
@@ -37,13 +29,13 @@ public class Sim {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Mean Inter-arrival Time: ");
-        meanInterArrivalTime = sc.nextDouble();
+        MeanInterArrivalTime = sc.nextDouble();
         System.out.print("Mean Service Time: ");
-        meanServiceTime = sc.nextDouble();
+        MeanServiceTime = sc.nextDouble();
         System.out.print("Standard Deviation: ");
         SIGMA = sc.nextDouble();
         System.out.print("Total Number Of Customers: ");
-        totalCustomers = sc.nextInt();
+        TotalCustomers = sc.nextInt();
 
         Date start = new Date();
 
@@ -54,10 +46,10 @@ public class Sim {
 
         initialization();
 
-        while (numberOfDepartures < totalCustomers) {
+        while (NumberOfDepartures < TotalCustomers) {
             Event evt = (Event) futureEventList.getMin();
             futureEventList.dequeue();
-            clock = evt.getTime();
+            Clock = evt.getTime();
             if (evt.getType() == arrival) {
                 processArrival(evt);
             } else {
@@ -71,69 +63,70 @@ public class Sim {
 
     public static void initialization() {
 
-        clock = 0.0;
-        queueLength = 0;
-        numberInService = 0;
-        lastEventTime = 0.0;
-        totalBusy = 0;
-        maxQueueLength = 0;
-        sumResponseTime = 0;
-        numberOfDepartures = 0;
-        longService = 0;
+        Clock = 0.0;
+        QueueLength = 0;
+        NumberInService = 0;
+        LastEventTime = 0.0;
+        TotalBusy = 0;
+        MaxQueueLength = 0;
+        SumResponseTime = 0;
+        NumberOfDepartures = 0;
+        LongService = 0;
 
-        Event evt = new Event(arrival, exponential(stream, meanInterArrivalTime));
+        Event evt = new Event(arrival, exponential(stream, MeanInterArrivalTime));
         futureEventList.enqueue(evt);
     }
 
     public static void processArrival(Event evt) {
 
-        Event nextArrival = new Event(arrival, (clock + exponential(stream, meanInterArrivalTime)));
+        Event nextArrival = new Event(arrival, (Clock + exponential(stream, MeanInterArrivalTime)));
         futureEventList.enqueue(nextArrival);
 
         customers.enqueue(evt);
-        queueLength++;
-        if (numberInService == 0) {
+        QueueLength++;
+        if (NumberInService == 0) {
             scheduleDeparture();
         } else {
-            totalBusy += (clock - lastEventTime);
+            TotalBusy += (Clock - LastEventTime);
         }
-        if (maxQueueLength < queueLength) {
-            maxQueueLength = queueLength;
+        if (MaxQueueLength < QueueLength) {
+            MaxQueueLength = QueueLength;
         }
 
-        lastEventTime = clock;
+        LastEventTime = Clock;
     }
 
     public static void scheduleDeparture() {
         double serviceTime;
-        while ((serviceTime = normal(stream, meanServiceTime, SIGMA)) < 0);
-        Event depart = new Event(departure, clock + serviceTime);
+        while ((serviceTime = normal(stream, MeanServiceTime, SIGMA)) < 0);
+        Event depart = new Event(departure, Clock + serviceTime);
         futureEventList.enqueue(depart);
-        numberInService = 1;
-        queueLength--;
+        NumberInService = 1;
+        QueueLength--;
 
     }
 
     public static void processDeparture(Event e) {
         Event finished = (Event) customers.dequeue();
-        if (queueLength > 0) {
+        if (QueueLength > 0) {
             scheduleDeparture();
         } else {
-            numberInService = 0;
+            NumberInService = 0;
         }
-        double response = (clock - finished.getTime());
-        sumResponseTime += response;
+        double response = (Clock - finished.getTime());
+        SumResponseTime += response;
         if (response > 4.0) {
-            longService++;
+            LongService++;
         }
-        totalBusy += (clock - lastEventTime);
-        numberOfDepartures++;
-        lastEventTime = clock;
+        TotalBusy += (Clock - LastEventTime);
+        NumberOfDepartures++;
+        LastEventTime = Clock;
     }
 
     public static double exponential(Random rng, double mean) {
         return -mean * Math.log(rng.nextDouble());
     }
+
     public static double saveNormal;
     public static int numNormals = 0;
     public static final double PI = 3.1415927;
