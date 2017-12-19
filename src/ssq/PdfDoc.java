@@ -98,9 +98,9 @@ public class PdfDoc {
 
         System.out.println();
 
-        System.out.println("                          ***REPORT***");
+        System.out.println("                          ---REPORT---");
 
-        System.out.println("#SINGLE SERVER QUEUE SIMULATION - GROCERY STORE CHECKOUT COUNTER#");
+        System.out.println("SINGLE SERVER QUEUE SIMULATION - GROCERY STORE CHECKOUT COUNTER");
         System.out.println("\tMEAN INTER-ARRIVAL TIME                :        " + Sim.MeanInterArrivalTime);
         System.out.println("\tMEAN SERVICE TIME                      :        " + Sim.MeanServiceTime);
         System.out.println("\tSTANDARD DEVIATION OF SERVICE TIMES    :        " + Sim.SIGMA);
